@@ -1,0 +1,121 @@
+<!-- <ngx-slick-carousel class="main-slider slider"   [config]="slideConfig" >
+    <div ngxSlickItem class="slider-item " style="background-image:url('assets/images/slideshow1-2.jpg')">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-6 col-12 offset-lg-6 offset-md-6">
+            <div class="slider-caption">
+              <span class="lead">Winter Collection Sale </span>
+              <h1 class="mt-2 mb-5"><span class="text-color">70% off </span>to everything</h1>
+              <a href="#" class="btn btn-main">Shop Now</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div ngxSlickItem  class="slider-item" style="background-image:url('assets/images/slideshow1-3.jpg')">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-6 col-12 offset-lg-6 offset-md-6">
+            <div class="slider-caption">
+              <span class="lead">up to 70% off</span>
+              <h1 class="mt-2 mb-5"><span class="text-color">Classic</span> Style</h1>
+              <a href="#" class="btn btn-main">Shop Now</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div ngxSlickItem  class="slider-item" style="background-image:url('assets/images/slideshow1-1.jpg'); background-position:50%;background-repeat:no-repeat;">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-6 col-12 offset-lg-6 offset-md-6">
+            <div class="slider-caption">
+              <span class="lead">Trendy dress</span>
+              <h1 class="mt-2 mb-5"><span class="text-color">Winter </span>Collection</h1>
+              <a href="#" class="btn btn-main">Shop Now</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ngx-slick-carousel> -->
+<section class="category section pt-3 pb-0">
+  <div class="container ">
+    <diV class="row justify-content-center">
+      <div class="col-lg-8">
+        <div class="title text-center">
+          <h2>Categories</h2>
+        </div>
+      </div>
+    </diV>
+    <div class="row justify-content-center ">
+      <div class="card mr-2" style="width: 10rem; padding-left:10px; box-shadow:  5px 2px 5px #cecdcd;"
+        *ngFor="let ct of categoriesdata">
+        <div class="card-body">
+          <button type="button" class="btn-sm"
+            style="text-decoration: none; border: none; background-color: white; font-weight: bold; color: #FB5C42; font-size: large;"
+            (click)="getSubcategories(ct.id)">{{ct.name}}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="category section pt-5 pb-0 subcategory" [style.display]="show == false ? 'none' : 'block'">
+  <div class="container ">
+    <diV class="row justify-content-center">
+      <div class="col-lg-8">
+        <div class="title text-center">
+          <h2>SubCategories</h2>
+        </div>
+      </div>
+    </diV>
+    <div class="row justify-content-center">
+      <div class="card mr-2" style="width: 10rem; padding-left:10px; box-shadow:  5px 2px 5px #cecdcd;"
+        *ngFor="let sbct of subcategorydata">
+        <div class="card-body">
+          <button type="button" class="btn-sm"
+            style="text-decoration: none; border: none; background-color: white; font-weight: bold; color: #FB5C42; font-size: large;"
+            (click)="getProductsBySubcategoryId(sbct.id)">{{sbct.name}}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section products-main" [style.display]="showproducts == false ? 'none' : 'block'">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <div class="title text-center">
+          <h2>Products</h2>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-3 col-12 col-md-6 col-sm-6 mb-5" *ngFor="let product of productsdata">
+        <div class="product">
+          <div class="product-wrap">
+            <a [routerLink]="['/product-single',product.id]"><img class="img-fluid w-100 mb-3 img-first" src="assets/images/322.jpg" alt="product-img" /></a>
+            <a routerLink="['/product-single',product.id]"><img class="img-fluid w-100 mb-3 img-second" src="{{product.image}}" alt="product-img" /></a>
+          </div>
+
+          <span class="onsale">{{product.id}} {{product.description}}</span>
+          <div class="product-hover-overlay">
+            <a href="#"><i class="tf-ion-android-cart"></i></a>
+            <a href="#"><i class="tf-ion-ios-heart"></i></a>
+          </div>
+
+          <div class="product-info">
+            <h2 class="product-title h5 mb-0"><a href="#">{{product.product_Name}}</a></h2>
+            <span class="price">
+              {{product.price}} INR
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

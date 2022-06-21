@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Products } from './products.model';
+import { Products } from '../_models/products.model';
 @Injectable({
   providedIn: 'root'
 })
@@ -12,5 +12,8 @@ export class ProductsService {
   }
   getbysubcategoryid(subcategoryid:number): Observable<Array<Products>> {
     return this.http.get<Array<Products>>("https://localhost:7180/Product/get-products-bysubcategoryid/"+subcategoryid, { headers: this.headers });
-  } 
+  }
+  getbyproductid(id:number) : Observable<Products>{
+    return this.http.get<Products>("https://localhost:7180/Product/get-productbyid/"+id, { headers: this.headers });
+  }
 }

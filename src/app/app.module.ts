@@ -3,19 +3,25 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HeaderComponent } from './header/header.component';
-import { FooterComponent } from './footer/footer.component';
-import { HomeComponent } from './home/home.component';
+import { HeaderComponent } from './_components/header/header.component';
+import { FooterComponent } from './_components/footer/footer.component';
+import { HomeComponent } from './_components/home/home.component';
 import { SlickCarouselModule } from 'ngx-slick-carousel';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
-import { CategoriesService } from './categories.service';
-import { DecimalPipe } from '@angular/common';
-import { DatePipe } from '@angular/common';
+import { CategoriesService } from './_services/categories.service';
+import { AlertComponent } from './_components/alert/alert.component';
+import { ProductsingleComponent } from './_components/productsingle/productsingle.component';
+import { CartComponent } from './_components/cart/cart.component';
+
 
 const appRoutes: Routes = [
-  { path: '', component: HomeComponent }
+  { path: '', component: HomeComponent },
+  { path: 'authentication', loadChildren: () => import('./authentication/authentication.module').then(m => m.AuthenticationModule) },
+  { path:"product-single", component:ProductsingleComponent },
+  { path:"product-single/:id", component:ProductsingleComponent },
+  { path:"cart", component:CartComponent },
 ];
 
 @NgModule({
@@ -24,6 +30,9 @@ const appRoutes: Routes = [
     HeaderComponent,
     FooterComponent,
     HomeComponent,
+    AlertComponent,
+    ProductsingleComponent,
+    CartComponent,
   ],
   imports: [
     BrowserModule,
@@ -31,8 +40,11 @@ const appRoutes: Routes = [
     SlickCarouselModule,
     HttpClientModule,
     FormsModule,
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes),
+    ReactiveFormsModule,
+    
   ],
+  exports: [RouterModule],
   providers: [
     CategoriesService
   ],

@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Categories } from '../categories.model';
-import { CategoriesService } from '../categories.service';
-import { SubcategoriesService } from '../subcategories.service';
-import { ProductsService } from '../products.service';
-import { Subcategories } from '../subcategories.model';
-import { Products } from '../products.model';
+import { Categories } from '../../_models/categories.model';
+import { CategoriesService } from '../../_services/categories.service';
+import { SubcategoriesService } from '../../_services/subcategories.service';
+import { ProductsService } from '../../_services/products.service';
+import { Subcategories } from '../../_models/subcategories.model';
+import { Products } from '../../_models/products.model';
 
 @Component({
   selector: 'app-home',

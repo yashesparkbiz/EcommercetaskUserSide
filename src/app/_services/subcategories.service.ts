@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Subcategories } from './subcategories.model';
+import { Subcategories } from '../_models/subcategories.model';
 import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
