@@ -1,6 +1,6 @@
 export interface Cartinterface {
     in: {
-        // id: number,
+        id: number,
         product_Id: number,
         quantity: number,
         price: number,

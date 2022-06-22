@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable, Output } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { User } from '../_interfaces/user';
 import { Users } from '../_models/user.model';
@@ -12,9 +12,10 @@ import { RegistrationResponseDto } from '../_interfaces/registration-response-dt
 })
 export class AuthenticationService {
   private headers: HttpHeaders;
-  private authChangeSub = new Subject<boolean>()
+  private authChangeSub = new Subject<boolean>();
   public authChanged = this.authChangeSub.asObservable();
   user!: User;
+  public isauthenticate!: boolean;
 
   constructor(private http: HttpClient, private envUrl: EnvironmentUrlService) { 
     this.headers = new HttpHeaders({ 'Content-Type': 'application/json; charset=utf-8' });
@@ -29,7 +30,9 @@ export class AuthenticationService {
   }
 
   public sendAuthStateChangeNotification = (isAuthenticated: boolean) => {
+    debugger
     this.authChangeSub.next(isAuthenticated);
+    this.isauthenticate = isAuthenticated;
   }
 
   private createCompleteRoute = (route: string, envAddress: string) => {
@@ -38,6 +41,7 @@ export class AuthenticationService {
 
   public logout = () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("id");
     this.sendAuthStateChangeNotification(false);
   }
 

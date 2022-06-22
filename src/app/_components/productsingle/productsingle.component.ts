@@ -1,7 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { Cartinterface } from 'src/app/_interfaces/cartinterface';
 import { Products } from 'src/app/_models/products.model';
+import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { CartService } from 'src/app/_services/cart.service';
 import { ProductsService } from 'src/app/_services/products.service';
 
@@ -14,8 +17,7 @@ export class ProductsingleComponent implements OnInit {
   public id: any;
   product!: Products;
   errorMessage: string = '';
-  constructor(private activatedRoute: ActivatedRoute, public productsService: ProductsService, public cartService: CartService, public route: Router) { }
-
+  constructor(private activatedRoute: ActivatedRoute, private productsService: ProductsService, private cartService: CartService, private route: Router) { }
   ngOnInit(): void {
     this.activatedRoute.paramMap.subscribe(params => {
       this.id = params.get('id');
@@ -31,13 +33,13 @@ export class ProductsingleComponent implements OnInit {
 
   addtocart(item: Products) {
     debugger
-    alert("hey");
-    var token = localStorage.getItem('token');
     var UserId = (Number)((localStorage.getItem('id'))?.toString());
-    if (token != null && token != '' && UserId > 0) {
+    var token = localStorage.getItem("token");
+    if ( token!=undefined && token!='') {
       const cartitem: Cartinterface =
       {
         in: {
+          id: 0,
           product_Id: item.id,
           quantity: item.quantity,
           price: item.price,
@@ -45,18 +47,23 @@ export class ProductsingleComponent implements OnInit {
           is_Active: item.is_Active,
         }
       };
-      var additem : boolean = (Boolean) (this.cartService.addtocart("ProductCart/add-product-cart", cartitem));
-      if(additem == true)
-      {
-        this.route.navigate(['/cart']);
-        this.errorMessage = 'item added to cart successfully.';
-      }
-      else
-      {
-        this.errorMessage = 'sorry!!!!! item not added to cart';
-      }
+      debugger
+       this.cartService.addtocart(cartitem).subscribe({
+        next: (_) => {console.log("product added in cart successfully");},
+        error: (err: HttpErrorResponse) => console.log(err.error.errors)
+      });
+      // if(additem == true)
+      // {
+      //   this.route.navigate(['/cart']);
+      //   this.errorMessage = 'item added to cart successfully.';
+      // }
+      // else
+      // {
+      //   this.errorMessage = 'sorry!!!!! item not added to cart';
+      // }
     }
-    else{
+    else
+    {
       this.route.navigate(['/authentication/login']);
     }
   }

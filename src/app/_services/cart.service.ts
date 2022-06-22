@@ -13,8 +13,9 @@ export class CartService {
   constructor(private http: HttpClient, private envUrl: EnvironmentUrlService) { 
     this.headers = new HttpHeaders({ 'Content-Type': 'application/json; charset=utf-8' });
   }
-  public addtocart(route: string, body: Cartinterface) : Observable<boolean> {
-    return this.http.post<boolean>(this.createCompleteRoute(route, this.envUrl.urlAddress), body);
+  public addtocart(body: Cartinterface): Observable<number> {
+    debugger 
+    return this.http.post<number>("https://localhost:7180/ProductCart/add-product-cart", body);
   }
   private createCompleteRoute = (route: string, envAddress: string) => {
     return `${envAddress}/${route}`;
