@@ -1,10 +1,7 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable } from 'rxjs';
-import { Cartinterface } from 'src/app/_interfaces/cartinterface';
+import { ProductCartModel } from 'src/app/_interfaces/cartinterface';
 import { Products } from 'src/app/_models/products.model';
-import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { CartService } from 'src/app/_services/cart.service';
 import { ProductsService } from 'src/app/_services/products.service';
 
@@ -17,6 +14,7 @@ export class ProductsingleComponent implements OnInit {
   public id: any;
   product!: Products;
   errorMessage: string = '';
+  productcartid!: number;
   constructor(private activatedRoute: ActivatedRoute, private productsService: ProductsService, private cartService: CartService, private route: Router) { }
   ngOnInit(): void {
     this.activatedRoute.paramMap.subscribe(params => {
@@ -35,8 +33,9 @@ export class ProductsingleComponent implements OnInit {
     debugger
     var UserId = (Number)((localStorage.getItem('id'))?.toString());
     var token = localStorage.getItem("token");
-    if ( token!=undefined && token!='') {
-      const cartitem: Cartinterface =
+    if (token != undefined && token != '') 
+    {
+      const cartitem: ProductCartModel =
       {
         in: {
           id: 0,
@@ -47,23 +46,30 @@ export class ProductsingleComponent implements OnInit {
           is_Active: item.is_Active,
         }
       };
-      debugger
-       this.cartService.addtocart(cartitem).subscribe({
-        next: (_) => {console.log("product added in cart successfully");},
-        error: (err: HttpErrorResponse) => console.log(err.error.errors)
+
+      //  this.cartService.addtocart(cartitem).subscribe({
+      //   next: (_) => {console.log("product added in cart successfully");},
+      //   error: (err: HttpErrorResponse) => console.log(err.error.errors)
+      // });
+      var cartid = 0;
+      this.cartService.addtocart(cartitem).subscribe(result => {
+        debugger
+        cartid = result;
       });
-      // if(additem == true)
-      // {
-      //   this.route.navigate(['/cart']);
-      //   this.errorMessage = 'item added to cart successfully.';
-      // }
-      // else
-      // {
-      //   this.errorMessage = 'sorry!!!!! item not added to cart';
-      // }
+      if(cartid > 0)
+      {
+        cartid=0;
+        this.route.navigate(['/cart']);
+        this.errorMessage = 'item added to cart successfully.';
+      }
+      else
+      {
+        this.errorMessage = 'sorry!!!!! item already available in cart';
+        cartid=0;
+      }
     }
-    else
-    {
+    else {
+      debugger
       this.route.navigate(['/authentication/login']);
     }
   }

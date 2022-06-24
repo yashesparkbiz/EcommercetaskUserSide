@@ -6,11 +6,16 @@ import { Observable } from 'rxjs';
 export class HttpInterceptorInterceptor implements HttpInterceptor {
   constructor() { }
   intercept(request: HttpRequest<any>, newRequest: HttpHandler): Observable<HttpEvent<any>> {
+    // let headers = request.headers.set('X-Requested-With', 'XMLHttpRequest')
     let tokenInfo = localStorage.getItem('token');
+    // if(tokenInfo )
+    // {
+    //   headers = headers.set("Authorization", `Bearer ${tokenInfo}`)
+    // }
     if (tokenInfo ) {
       request = request.clone({
         setHeaders: {
-          Authorization: `Bearer ${tokenInfo}`, 'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
+          Authorization: `Bearer ${tokenInfo}`, 'Content-Type': 'application/json;'
         }
       });
     }
@@ -23,4 +28,5 @@ export class HttpInterceptorInterceptor implements HttpInterceptor {
       { provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorInterceptor, multi: true }
   ]
 })
+
 export class HttpInterceptorModule { }

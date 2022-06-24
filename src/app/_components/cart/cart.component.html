@@ -1,34 +1,46 @@
 <section class="section-pagetop bg">
     <div class="container">
-        <h2 class="title-page">Shopping cart</h2>
-    </div> <!-- container //  -->
+        <div class="row">
+            <div class="col-md-4">
+            <h2 class="title-page">Shopping cart</h2></div>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb bg-transparent justify-content-center">
+                    <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Cart</li>
+                </ol>
+            </nav>
+        </div>
+    </div> 
 </section>
-<!-- ========================= SECTION INTRO END// ========================= -->
-<!-- ========================= SECTION CONTENT ========================= -->
+    
 <section class="section-content padding-y">
     <div class="container">
         <div class="row">
             <main class="col-md-9">
                 <div class="card">
-                    <table class="table table-borderless table-shopping-cart">
+                    <table class="table table-borderless table-shopping-cart" >
                         <thead class="text-muted">
                             <tr class="small text-uppercase">
                                 <th scope="col">Product</th>
+                                <th scope="col">Product Name</th>
                                 <th scope="col" width="120">Quantity</th>
                                 <th scope="col" width="120">Price</th>
                                 <th scope="col" class="text-right" width="200"> </th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
+                            <tr *ngFor="let cart of carts">
                                 <td>
                                     <figure class="itemside">
-                                        <div class="aside"><img src="assets/images/items/1.jpg" class="img-sm"></div>
-                                        <figcaption class="info">
-                                            <a href="#" class="title text-dark">Some name of item goes here nice</a>
+                                        <div class="aside"><img src="{{cart.image}}" class="img-sm"></div>
+                                        <!-- <figcaption class="info">
+                                            <a href="#" class="title text-dark">{{cart.image}}</a>
                                             <p class="text-muted small">Size: XL, Color: blue, <br> Brand: Gucci</p>
-                                        </figcaption>
+                                        </figcaption> -->
                                     </figure>
+                                </td>
+                                <td>
+                                    <p>{{cart.productName}}</p>
                                 </td>
                                 <td>
                                     <select class="form-control">
@@ -40,8 +52,8 @@
                                 </td>
                                 <td>
                                     <div class="price-wrap">
-                                        <var class="price">$1156.00</var>
-                                        <small class="text-muted"> $315.20 each </small>
+                                        <var class="price">{{cart.price}} INR</var>
+                                        <small class="text-muted"> {{cart.price}} INR each </small>
                                     </div> <!-- price-wrap .// -->
                                 </td>
                                 <td class="text-right">
@@ -110,9 +122,8 @@
                         </tbody>
                     </table>
                     <div class="card-body border-top">
-                        <a href="#" class="btn btn-primary float-md-right"> Make Purchase <i
-                                class="fa fa-chevron-right"></i> </a>
-                        <a href="#" class="btn btn-light"> <i class="fa fa-chevron-left"></i> Continue shopping </a>
+                        <a  (click) ="takeConfirmation();" class="btn btn-primary float-md-right"> Make Purchase <i class="fa fa-chevron-right"></i></a>
+                        <a routerLink="/" class="btn btn-light"> <i class="fa fa-chevron-left"></i> Continue shopping</a>
                     </div>
                 </div> <!-- card.// -->
                 <div class="alert alert-success mt-3">
@@ -122,7 +133,7 @@
             <aside class="col-md-3">
                 <!-- <div class="card mb-3">
                     <div class="card-body">
-                        <form>
+                        <form>return confirm('Are you sure you want to make purchase?')
                             <div class="form-group">
                                 <label>Have coupon?</label>
                                 <div class="input-group">
@@ -147,13 +158,12 @@
                         </dl>
                         <dl class="dlist-align">
                             <dt>Total:</dt>
-                            <dd class="text-right  h5"><strong>$1,650</strong></dd>
+                            <dd class="text-right  h5"><strong>{{TotalPrice}} INR</strong></dd>
                         </dl>
                         <hr>
                         <p class="text-center mb-3">
                             <img src="assets/images/misc/payments.png" height="26">
                         </p>
-
                     </div> <!-- card-body.// -->
                 </div> <!-- card .// -->
             </aside> <!-- col.// -->

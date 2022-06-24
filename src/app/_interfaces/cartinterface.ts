@@ -1,4 +1,4 @@
-export interface Cartinterface {
+export interface ProductCartModel {
     in: {
         id: number,
         product_Id: number,
