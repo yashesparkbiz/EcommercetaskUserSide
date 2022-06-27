@@ -39,7 +39,11 @@ export class CartService {
     return this.http.get<Array<ProductCart_Model>>("https://localhost:7180/ProductCart/get-product-cartbyuserid/" + UserId, { headers: this.headers });
   }
 
-  public addOrder(body: Order){
-    return this.http.post<any>("https://localhost:7180/Orders/add-orders", JSON.stringify(body), { headers: this.headers });
+  // public addOrder(body: Order){
+  //   return this.http.post<any>("https://localhost:7180/Orders/add-orders", JSON.stringify(body), { headers: this.headers });
+  // }
+
+  public removecartbycartid(CartId:number, product_Id:number){
+    return this.http.delete("https://localhost:7180/ProductCart/delete-product-cart/"+CartId+"/"+product_Id, { headers: this.headers });
   }
 }

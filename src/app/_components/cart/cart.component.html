@@ -29,7 +29,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let cart of carts">
+                            <tr *ngFor="let cart of carts;let i=index;">
                                 <td>
                                     <figure class="itemside">
                                         <div class="aside"><img src="{{cart.image}}" class="img-sm"></div>
@@ -40,25 +40,26 @@
                                     </figure>
                                 </td>
                                 <td>
-                                    <p>{{cart.productName}}</p>
+                                    <p><a [routerLink] ="['/product-single',cart.product_Id]">{{cart.productName}}</a></p>
                                 </td>
                                 <td>
-                                    <select class="form-control">
-                                        <option>1</option>
-                                        <option>2</option>
-                                        <option>3</option>
-                                        <option>4</option>
+                                    <select class="form-control" id="q{{i}}">
+                                        <option value="" selected>select value</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
                                     </select>
                                 </td>
                                 <td>
                                     <div class="price-wrap">
                                         <var class="price">{{cart.price}} INR</var>
                                         <small class="text-muted"> {{cart.price}} INR each </small>
-                                    </div> <!-- price-wrap .// -->
+                                    </div> 
                                 </td>
                                 <td class="text-right">
                                     <a href="" class="btn btn-light btn-small mb-3 rounded">wishlist</a>
-                                    <a href="" class="btn btn-light btn-small mb-3 rounded">Remove</a>
+                                    <a (click)="removecartitem(cart.id,cart.product_Id)" class="btn btn-light btn-small mb-3 rounded">Remove</a>
                                 </td>
                             </tr>
                             <!-- <tr>
@@ -148,14 +149,14 @@
                 </div>  -->
                 <div class="card">
                     <div class="card-body">
-                        <dl class="dlist-align">
+                        <!-- <dl class="dlist-align">
                             <dt>Total price:</dt>
                             <dd class="text-right">USD 568</dd>
                         </dl>
                         <dl class="dlist-align">
                             <dt>Discount:</dt>
                             <dd class="text-right">USD 658</dd>
-                        </dl>
+                        </dl> -->
                         <dl class="dlist-align">
                             <dt>Total:</dt>
                             <dd class="text-right  h5"><strong>{{TotalPrice}} INR</strong></dd>

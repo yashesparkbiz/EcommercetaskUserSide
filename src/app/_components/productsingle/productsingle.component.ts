@@ -17,6 +17,7 @@ export class ProductsingleComponent implements OnInit {
   productcartid!: number;
   constructor(private activatedRoute: ActivatedRoute, private productsService: ProductsService, private cartService: CartService, private route: Router) { }
   ngOnInit(): void {
+    debugger
     this.activatedRoute.paramMap.subscribe(params => {
       this.id = params.get('id');
       this.getProductsByProductId(this.id);
@@ -33,8 +34,7 @@ export class ProductsingleComponent implements OnInit {
     debugger
     var UserId = (Number)((localStorage.getItem('id'))?.toString());
     var token = localStorage.getItem("token");
-    if (token != undefined && token != '') 
-    {
+    if (token != undefined && token != '') {
       const cartitem: ProductCartModel =
       {
         in: {
@@ -55,18 +55,16 @@ export class ProductsingleComponent implements OnInit {
       this.cartService.addtocart(cartitem).subscribe(result => {
         debugger
         cartid = result;
+        if (cartid > 0) {
+          cartid = 0;
+          this.route.navigate(['/cart']);
+          this.errorMessage = 'item added to cart successfully.';
+        }
+        else {
+          this.errorMessage = 'sorry!!!!! item already available in cart';
+          cartid = 0;
+        }
       });
-      if(cartid > 0)
-      {
-        cartid=0;
-        this.route.navigate(['/cart']);
-        this.errorMessage = 'item added to cart successfully.';
-      }
-      else
-      {
-        this.errorMessage = 'sorry!!!!! item already available in cart';
-        cartid=0;
-      }
     }
     else {
       debugger
