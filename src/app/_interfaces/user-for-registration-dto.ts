@@ -7,5 +7,6 @@ export interface UsersModel {
         Age: number;
         Password: string;
         ConfirmPassword: string;
+        Role:string;
     }
 }

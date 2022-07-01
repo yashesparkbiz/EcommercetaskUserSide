@@ -19,7 +19,7 @@ export class LoginComponent implements OnInit {
   
   constructor(private authService: AuthenticationService, private router: Router, private route: ActivatedRoute) { }
 
-  ngOnInit(): void 
+  ngOnInit(): void
   {
     this.loginForm = new FormGroup({
       username: new FormControl("", [Validators.required]),

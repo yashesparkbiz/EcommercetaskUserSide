@@ -5,4 +5,5 @@ export class Users {
     email! : string;
     phoneNumber! : string;
     userName! : string;
+    role:string = "Customer";
 }

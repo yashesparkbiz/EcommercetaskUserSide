@@ -5,7 +5,7 @@ import { ProductCart_Model } from '../_components/cart/cart.component';
 import { HttpInterceptorInterceptor } from '../_Intercepters/http-interceptor.interceptor';
 import { ProductCartModel } from '../_interfaces/cartinterface';
 import { Cart } from '../_models/cart.model';
-import { Order } from '../_models/order.model';
+import { Orders } from '../_models/order.model';
 import { AuthenticationService } from './authentication.service';
 import { EnvironmentUrlService } from './environment-url.service';
 

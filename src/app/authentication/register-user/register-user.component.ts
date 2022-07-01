@@ -47,13 +47,16 @@ export class RegisterUserComponent implements OnInit {
       Gender: formValues.gender,
       Age: formValues.age,
       Password: formValues.password,
-      ConfirmPassword: formValues.confirmPassword
+      ConfirmPassword: formValues.confirmPassword,
+      Role: "Customer"
       }
     };
     debugger
     this.authService.registerUser("Users/create-user", user)
     .subscribe({
-      next: (_) => {console.log("Successful registration");this.router.navigate(["/authentication/login"])},
+      next: (_) => {
+        console.log("Successful registration");this.router.navigate(["/authentication/login"]); alert("Congrats! Your account has been created successfully.");
+      },
       error: (err: HttpErrorResponse) => console.log(err.error.errors)
     });
   };

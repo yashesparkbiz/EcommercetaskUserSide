@@ -18,10 +18,11 @@ import { CheckoutComponent } from './_components/checkout/checkout.component';
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'authentication', loadChildren: () => import('./authentication/authentication.module').then(m => m.AuthenticationModule) },
-  { path:"product-single", component:ProductsingleComponent },
-  { path:"product-single/:id", component:ProductsingleComponent },
-  { path:"cart", component:CartComponent },
-  { path:"checkout", component:CheckoutComponent }
+  { path: "product-single", component: ProductsingleComponent },
+  { path: "product-single/:id", component: ProductsingleComponent },
+  { path: "cart", component: CartComponent },
+  { path: "checkout", component: CheckoutComponent },
+  { path: "checkout/:orderid", component: CheckoutComponent }
 ];
 
 @NgModule({

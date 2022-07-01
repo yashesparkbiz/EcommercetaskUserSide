@@ -19,5 +19,4 @@ import { RegisterUserComponent } from './register-user/register-user.component'
     ])
   ]
 })
-
 export class AuthenticationModule { }

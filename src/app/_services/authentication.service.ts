@@ -22,6 +22,7 @@ export class AuthenticationService {
   }
 
   public registerUser = (route: string, body: UsersModel) => {
+    debugger
     return this.http.post<RegistrationResponseDto> (this.createCompleteRoute(route, this.envUrl.urlAddress), body);
   }
 

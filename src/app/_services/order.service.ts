@@ -1,6 +1,9 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Orders } from '../_models/order.model';
 import { Order } from '../_interfaces/order';
+
 import { AuthenticationService } from './authentication.service';
 import { EnvironmentUrlService } from './environment-url.service';
 
@@ -16,7 +19,11 @@ export class OrderService {
   }
 
   public addOrder(body: Order){
-    debugger
     return this.http.post<any>("https://localhost:7180/Orders/add-orders", JSON.stringify(body), { headers: this.headers });
+  }
+
+  public getorderbyorderid(id: number) :Observable<Orders>
+  {
+    return this.http.get<Orders>("https://localhost:7180/Orders/get-orderbyid/"+id, { headers: this.headers });
   }
 }

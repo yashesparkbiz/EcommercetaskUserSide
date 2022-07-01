@@ -46,18 +46,23 @@ export class CartComponent implements OnInit {
     });
   }
 
-  takeConfirmation() {
+  async takeConfirmation() {
+    debugger
     if (this.carts.length > 0) {
       var orderid!: number;
       for (let i = 0; i < this.carts.length; i++) {
         var quantity = (<HTMLSelectElement>document.getElementById('q' + i)).value.toString();
+        if (quantity == "" || quantity == undefined) {
+          alert("please enter valid quantity");
+          return;
+        }
         var token = localStorage.getItem("token");
         if (token != undefined && token != '') {
           this.total_amount = this.total_amount + (this.carts[i].price * parseInt(quantity));
         }
       }
 
-      if (this.total_amount != null) {
+      if (this.total_amount != null && this.total_amount != undefined) {
         const order: Order = {
           in: {
             id: 0,
@@ -66,48 +71,60 @@ export class CartComponent implements OnInit {
             user_Id: (Number)(localStorage.getItem('id')?.toString())
           }
         }
-        this.orderService.addOrder(order).subscribe(res => { alert(res); orderid = res; });
+        await this.orderService.addOrder(order).subscribe(res => { alert("orderid = " + res); orderid = res; this.getdiscount(res); });
       }
       else {
         alert("plaese select valid quantity");
       }
 
-      //----------------------------------------------------------------------------------------------------------------------
+    }
+  }
 
+  //----------------------------------------------------------------------------------------------------------------------
+  async getdiscount(orderid: number) {
+    if (this.carts.length > 0) {
       for (let i = 0; i < this.carts.length; i++) {
         debugger
         var token = localStorage.getItem("token");
         if (token != undefined && token != '') {
-          var discount!: Array<Discount>
-          this.discountService.getdiscountbyproductid(this.carts[i].product_Id).subscribe(res => { discount = res; });
-          alert(discount);
-          if (discount != undefined && discount.length > 0) {
-            const orderdetailsitem: Orderdetails =
-            {
-              in: {
-                id: 0,
-                product_Id: this.carts[i].product_Id,
-                quantity: (Number)(document.getElementById('q' + i)),
-                order_Id: orderid,
-                status: "pending",
-                discount_Id: discount[0].id
-              }
-            }
-            this.orderdetailsService.addOrderDetails(orderdetailsitem).subscribe(res => { 
-              
-            });
-          }
+          var discount!: Discount[];
+          await this.discountService.getdiscountbyproductid(this.carts[i].product_Id).subscribe(res => {
+            discount = res; this.addorderdetails(res[0].id, i, orderid); alert("discount = " + JSON.stringify(discount));
+          });
         }
       }
     }
-    var check = confirm('Are you sure you want to make purchase?');
-    if (check == true) {
-      this.route.navigate(['/checkout']);
+  }
+
+  //-------------------------------------------------------------------------------------------------------------------------
+  async addorderdetails(discountid: number, i: number, orderid: number) {
+    debugger
+    if (discountid != undefined) {
+      const orderdetailsitem: Orderdetails =
+      {
+        in: {
+          id: 0,
+          product_Id: this.carts[i].product_Id,
+          quantity: parseInt((<HTMLSelectElement>document.getElementById('q' + i)).value.toString()),
+          order_Id: orderid,
+          status: "pending",
+          discount_Id: discountid
+        }
+      }
+      await this.orderdetailsService.addOrderDetails(orderdetailsitem).subscribe(res => {
+        console.log("orderdetailsid= "+res+" i="+i);
+        if (i == this.carts.length-1) {
+          var check = confirm('Are you sure you want to make purchase?');
+          if (check == true) {
+            this.route.navigate(['/checkout', orderid]);
+          }
+        }
+      });
     }
   }
 
   removecartitem(CartId: number, product_Id: number) {
-    alert(CartId);
+    alert("cardid = " + CartId);
     this.cartservice.removecartbycartid(CartId, product_Id).subscribe(res => { alert(res + " item deleted successfully"); });
     this.getcartbyUserId((Number)(localStorage.getItem('id')?.toString()));
   }
