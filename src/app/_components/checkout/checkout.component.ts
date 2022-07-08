@@ -1,11 +1,8 @@
-import { ThisReceiver } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Orders } from 'src/app/_models/order.model';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { OrderService } from 'src/app/_services/order.service';
-import { CartComponent } from '../cart/cart.component';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Address } from 'src/app/_interfaces/address';
 import { AddressService } from 'src/app/_services/address.service';
