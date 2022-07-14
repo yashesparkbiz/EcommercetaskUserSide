@@ -7,6 +7,7 @@ import { Observable, Subject } from 'rxjs';
 import { EnvironmentUrlService } from './environment-url.service';
 import { UsersModel } from '../_interfaces/user-for-registration-dto';
 import { RegistrationResponseDto } from '../_interfaces/registration-response-dto';
+import { TokenModel } from '../_models/token-model';
 @Injectable({
   providedIn: 'root'
 })
@@ -48,5 +49,9 @@ export class AuthenticationService {
 
   public getuserbyemail(email:string) : Observable<Users>{
     return this.http.get<Users>("https://localhost:7180/Users/get-user-byemail/"+email, { headers: this.headers });
+  }
+
+  public refreshtoken(tokenModel:TokenModel): Observable<TokenModel>{
+    return this.http.post<TokenModel>("https://localhost:7180/Users/refresh-token", JSON.stringify(tokenModel), { headers: this.headers });
   }
 }

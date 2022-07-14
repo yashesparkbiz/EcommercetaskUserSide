@@ -71,4 +71,8 @@ export class ProductsingleComponent implements OnInit {
       this.route.navigate(['/authentication/login']);
     }
   }
+
+  public createImgPath = (serverPath: string) => { 
+    return `https://localhost:7180/${serverPath}`; 
+  }
 }

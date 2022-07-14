@@ -98,8 +98,9 @@
       <div class="col-lg-3 col-12 col-md-6 col-sm-6 mb-5" *ngFor="let product of productsdata">
         <div class="product">
           <div class="product-wrap">
-            <a [routerLink]="['/product-single',product.id]"><img class="img-fluid w-100 mb-3 img-first" src="assets/images/322.jpg" alt="product-img" /></a>
-            <a routerLink="['/product-single',product.id]"><img class="img-fluid w-100 mb-3 img-second" src="{{product.image}}" alt="product-img" /></a>
+            <!-- <a [routerLink]="['/product-single',product.id]"><img class="img-fluid w-100 mb-3 img-first" src="assets/images/322.jpg" alt="product-img" /></a> -->
+            <a [routerLink]="['/product-single',product.id]">
+              <img class="img-fluid w-100 mb-3 img-first" [src]="createImgPath(product.image)" alt="profile picture" ></a>
           </div>
 
           <span class="onsale">{{product.id}} {{product.description}}</span>

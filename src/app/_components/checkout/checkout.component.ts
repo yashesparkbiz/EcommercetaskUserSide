@@ -21,7 +21,7 @@ export class CheckoutComponent implements OnInit {
   constructor(public router: Router, private authService: AuthenticationService, private route: ActivatedRoute, private orderService: OrderService, private addressService: AddressService) { }
 
   ngOnInit(): void {
-    if (localStorage.getItem('token')?.toString() != undefined || localStorage.getItem('token')?.toString() != "") {
+    if (localStorage.getItem('token')?.toString() != undefined && localStorage.getItem('token')?.toString() != "") {
       this.route.params.subscribe((params: Params) => this.orderid = params['orderid']);
 
       this.authService.authChanged.subscribe(res => {
@@ -51,7 +51,7 @@ export class CheckoutComponent implements OnInit {
 
     }
     else {
-      this.router.navigate(['']);
+      this.router.navigate(['/authentication/login']);
     }
   }
 

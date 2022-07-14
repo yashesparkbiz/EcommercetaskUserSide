@@ -25,14 +25,14 @@
             <div class="carousel slide" data-ride="carousel" id="single-product-slider">
               <div class="carousel-inner">
                 <div class="carousel-item active">
-                  <img src="{{product.image}}" alt="" class="img-fluid">
+                  <img [src]="createImgPath(product.image)" class="img-fluid" alt="" >
                 </div>
-                <div class="carousel-item">
+                <!-- <div class="carousel-item">
                   <img src="../../../assets/images/p-2.jpg" alt="" class="img-fluid">
                 </div>
                 <div class="carousel-item ">
                   <img src="../../../assets/images/p-1.jpg" alt="" class="img-fluid">
-                </div>
+                </div> -->
               </div>
               <ol class="carousel-indicators">
                   <li data-target="#single-product-slider" data-slide-to="0" class="active">

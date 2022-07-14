@@ -26,4 +26,6 @@ export class OrderService {
   {
     return this.http.get<Orders>("https://localhost:7180/Orders/get-orderbyid/"+id, { headers: this.headers });
   }
+
+  
 }

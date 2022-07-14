@@ -44,4 +44,8 @@ export class HomeComponent implements OnInit {
    this.showproducts= true;
   }
   slideConfig = { "slidesToShow": 1, "slidesToScroll": 1 };
+
+  public createImgPath = (serverPath: string) => { 
+    return `https://localhost:7180/${serverPath}`; 
+  }
 }

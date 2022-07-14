@@ -27,15 +27,22 @@ export class CartComponent implements OnInit {
     private orderService: OrderService, private orderdetailsService: OrderdetailsService) { }
 
   ngOnInit(): void {
-    this.authService.authChanged.subscribe(res => {
-      this.isUserAuthenticated = res;
-      console.log("isUserAuthenticated=" + this.isUserAuthenticated);
-      if (this.isUserAuthenticated == false || this.isUserAuthenticated == undefined) {
-        this.route.navigate(['/authentication/login']);
-      };
-    });
-    this.UserId = (Number)(localStorage.getItem('id')?.toString());
-    this.getcartbyUserId(this.UserId);
+    debugger
+    if (localStorage.getItem('token')?.toString() != undefined && localStorage.getItem('token')?.toString() != "") {
+      this.authService.authChanged.subscribe(res => {
+        this.isUserAuthenticated = res;
+        console.log("isUserAuthenticated=" + this.isUserAuthenticated);
+        if (this.isUserAuthenticated == false || this.isUserAuthenticated == undefined) {
+          this.route.navigate(['/authentication/login']);
+        };
+      });
+      this.UserId = (Number)(localStorage.getItem('id')?.toString());
+      this.getcartbyUserId(this.UserId);
+    }
+    else
+    {
+      this.route.navigate(['/authentication/login']);
+    }
   }
 
   getcartbyUserId(UserId: number) {
@@ -76,7 +83,6 @@ export class CartComponent implements OnInit {
       else {
         alert("plaese select valid quantity");
       }
-
     }
   }
 
@@ -112,8 +118,8 @@ export class CartComponent implements OnInit {
         }
       }
       await this.orderdetailsService.addOrderDetails(orderdetailsitem).subscribe(res => {
-        console.log("orderdetailsid= "+res+" i="+i);
-        if (i == this.carts.length-1) {
+        console.log("orderdetailsid= " + res + " i=" + i);
+        if (i == this.carts.length - 1) {
           var check = confirm('Are you sure you want to make purchase?');
           if (check == true) {
             this.route.navigate(['/checkout', orderid]);
@@ -127,6 +133,10 @@ export class CartComponent implements OnInit {
     alert("cardid = " + CartId);
     this.cartservice.removecartbycartid(CartId, product_Id).subscribe(res => { alert(res + " item deleted successfully"); });
     this.getcartbyUserId((Number)(localStorage.getItem('id')?.toString()));
+  }
+
+  public createImgPath = (serverPath: string) => { 
+    return `https://localhost:7180/${serverPath}`; 
   }
 }
 
