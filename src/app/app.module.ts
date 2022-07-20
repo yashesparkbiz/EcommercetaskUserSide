@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -16,6 +16,12 @@ import { CartComponent } from './_components/cart/cart.component';
 import { CheckoutComponent } from './_components/checkout/checkout.component';
 import { JwtModule } from "@auth0/angular-jwt";
 import { AuthGuard } from './_guards/auth.guard';
+import { GoogleLoginProvider, SocialAuthServiceConfig, SocialLoginModule } from '@abacritt/angularx-social-login';
+import { AuthenticationService } from './_services/authentication.service';
+import { LoginComponent } from './authentication/login/login.component';
+import { AuthenticationModule } from './authentication/authentication.module';
+import { RegisterUserComponent } from './authentication/register-user/register-user.component';
+
 
 export function tokenGetter() {
   return localStorage.getItem("token");
@@ -41,8 +47,11 @@ const appRoutes: Routes = [
     ProductsingleComponent,
     CartComponent,
     CheckoutComponent,
+    LoginComponent,
+    RegisterUserComponent
   ],
   imports: [
+    AuthenticationModule,
     BrowserModule,
     AppRoutingModule,
     SlickCarouselModule,
@@ -57,11 +66,31 @@ const appRoutes: Routes = [
         //disallowedRoutesRoutes: []
       }
     }),
+    SocialLoginModule,
   ],
   exports: [RouterModule],
   providers: [
-    CategoriesService
+    AuthenticationService,
+    CategoriesService,
+    {
+      provide: 'SocialAuthServiceConfig',
+      useValue: {
+        autoLogin: false,
+        providers: [
+          {
+            id: GoogleLoginProvider.PROVIDER_ID,
+            provider: new GoogleLoginProvider(
+              '74289081060-7pr600a4n7566n5ufvo4s8bqljvs64sb.apps.googleusercontent.com'
+            )
+          },
+        ],
+        onError: (err) => {
+          console.error(err);
+        }
+      } as SocialAuthServiceConfig
+    }
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule { }

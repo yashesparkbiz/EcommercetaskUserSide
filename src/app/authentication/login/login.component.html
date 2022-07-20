@@ -1,4 +1,4 @@
-<div class="container" style="margin-bottom: 10px;" >
+<div class="container" style="margin-bottom: 10px;">
     <div class="card text-center">
         <div class="card-body">
             <h1 class="card-title">Login</h1>
@@ -9,29 +9,50 @@
                 <div class="mb-3 row">
                     <label for="username" class="col-form-label col-sm-2">Email:</label>
                     <div class="col-md-5">
-                        <input type="text" id="username" formControlName="username" class="form-control" placeholder="enter email address"/>
+                        <input type="text" id="username" formControlName="username" class="form-control"
+                            placeholder="enter email address" />
                     </div>
                     <div class="col-md-5">
-                        <em *ngIf="validateControl('username') && hasError('username', 'required')">Username is required</em>
+                        <em *ngIf="validateControl('username') && hasError('username', 'required')">Username is
+                            required</em>
                     </div>
                 </div>
                 <div class="mb-3 row">
                     <label for="password" class="col-form-label col-sm-2">Password:</label>
                     <div class="col-md-5">
-                        <input type="password" id="password" formControlName="password" class="form-control" placeholder="enter password"/>
+                        <input type="password" id="password" formControlName="password" class="form-control"
+                            placeholder="enter password" />
                     </div>
                     <div class="col-md-5">
-                        <em *ngIf="validateControl('password') && hasError('password', 'required')">Password is required</em>
+                        <em *ngIf="validateControl('password') && hasError('password', 'required')">Password is
+                            required</em>
                     </div>
                 </div>
                 <br>
                 <div class="mb-3 row">
                     <div class="col-md-12">
-                        <button type="submit" class="btn btn-info btn-small" style="border-radius: 5px;" [disabled]="!loginForm.valid">Login</button><br><br>
-                        <p>Don't have an account? don't worry please do <a routerLink="/authentication/register">Signup</a></p>
+                        <button type="submit" class="btn btn-info btn-small" style="border-radius: 5px;"
+                            [disabled]="!loginForm.valid">Login</button><br><br>
+                        <p>Don't have an account? don't worry please do <a
+                                routerLink="/authentication/register">Signup</a></p>
                     </div>
                 </div>
             </form>
+            <hr>
+            <div>
+                <h2>External Providers</h2>
+                <div style="padding: 20px;">
+                    <!-- <button class="btn btn-info" type="button" (click)="externalLogin()">Google</button> -->
+                    <!-- <asl-google-signin-button type="button"></asl-google-signin-button> -->
+                    <!-- <google-sign-in-button button-id="uniqueid" options="options"></google-sign-in-button> -->
+                    <!-- <div id="g_id_onload" data-client_id="74289081060-7pr600a4n7566n5ufvo4s8bqljvs64sb.apps.googleusercontent.com" data-login_uri="https://your.domain/your_login_endpoint" data-auto_prompt="false">
+                    </div>                                            
+                    <div class="g_id_signin" data-type="standard" data-size="large" data-theme="outline"
+                        data-text="sign_in_with" data-shape="rectangular" data-logo_alignment="left">
+                    </div> -->
+                    <asl-google-signin-button type="button"></asl-google-signin-button>
+                </div>
+            </div>
         </div>
-      </div>
+    </div>
 </div>

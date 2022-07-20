@@ -7,8 +7,6 @@ import { RegisterUserComponent } from './register-user/register-user.component'
 
 @NgModule({
   declarations: [
-    RegisterUserComponent,
-    LoginComponent
   ],
   imports: [
     CommonModule,

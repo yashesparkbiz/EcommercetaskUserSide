@@ -1,6 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit, Output } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UsersModel } from 'src/app/_interfaces/user-for-registration-dto';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
@@ -13,18 +13,18 @@ import { AuthenticationService } from 'src/app/_services/authentication.service'
 
 export class RegisterUserComponent implements OnInit {
   
-  registerForm!: FormGroup;
+  registerForm!: UntypedFormGroup;
   constructor(private authService: AuthenticationService, private router: Router) { }
 
   ngOnInit(): void {
-    this.registerForm = new FormGroup({
-      userName: new FormControl('', [Validators.required]),
-      email: new FormControl('', [Validators.required, Validators.email]),
-      phoneNumber: new FormControl(''),
-      gender: new FormControl(''),
-      age: new FormControl(''),
-      password: new FormControl('', [Validators.required]),
-      confirmPassword: new FormControl('')
+    this.registerForm = new UntypedFormGroup({
+      userName: new UntypedFormControl('', [Validators.required]),
+      email: new UntypedFormControl('', [Validators.required, Validators.email]),
+      phoneNumber: new UntypedFormControl(''),
+      gender: new UntypedFormControl(''),
+      age: new UntypedFormControl(''),
+      password: new UntypedFormControl('', [Validators.required]),
+      confirmPassword: new UntypedFormControl('')
     });
   }
 

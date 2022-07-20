@@ -3,7 +3,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Orders } from 'src/app/_models/order.model';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { OrderService } from 'src/app/_services/order.service';
-import { FormGroup, FormControl } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl } from '@angular/forms';
 import { Address } from 'src/app/_interfaces/address';
 import { AddressService } from 'src/app/_services/address.service';
 
@@ -17,7 +17,7 @@ export class CheckoutComponent implements OnInit {
   isUserAuthenticated!: boolean;
   orderid!: number;
   orderdata!: Orders;
-  formdata!: FormGroup;
+  formdata!: UntypedFormGroup;
   constructor(public router: Router, private authService: AuthenticationService, private route: ActivatedRoute, private orderService: OrderService, private addressService: AddressService) { }
 
   ngOnInit(): void {
@@ -37,16 +37,16 @@ export class CheckoutComponent implements OnInit {
         this.getorderbyorderid(this.orderid);
       }
 
-      this.formdata = new FormGroup({
-        firstname: new FormControl(""),
-        lastname: new FormControl(""),
-        addresstype: new FormControl(""),
-        country: new FormControl(""),
-        state: new FormControl(""),
-        city: new FormControl(""),
-        street: new FormControl(""),
-        house: new FormControl(""),
-        pincode: new FormControl(""),
+      this.formdata = new UntypedFormGroup({
+        firstname: new UntypedFormControl(""),
+        lastname: new UntypedFormControl(""),
+        addresstype: new UntypedFormControl(""),
+        country: new UntypedFormControl(""),
+        state: new UntypedFormControl(""),
+        city: new UntypedFormControl(""),
+        street: new UntypedFormControl(""),
+        house: new UntypedFormControl(""),
+        pincode: new UntypedFormControl(""),
       });
 
     }
