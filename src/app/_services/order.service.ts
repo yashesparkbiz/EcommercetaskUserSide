@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Orders } from '../_models/order.model';
 import { Order } from '../_interfaces/order';
-
 import { AuthenticationService } from './authentication.service';
 import { EnvironmentUrlService } from './environment-url.service';
 
@@ -26,6 +25,4 @@ export class OrderService {
   {
     return this.http.get<Orders>("https://localhost:7180/Orders/get-orderbyid/"+id, { headers: this.headers });
   }
-
-  
 }

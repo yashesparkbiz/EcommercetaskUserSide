@@ -7,10 +7,13 @@ import { Observable } from 'rxjs';
 })
 export class SubcategoriesService {
   private headers: HttpHeaders;
+
   constructor(private http: HttpClient) { 
     this.headers = new HttpHeaders({ 'Content-Type': 'application/json; charset=utf-8' });
   }
+
   getbyid(categoryid:number): Observable<Array<Subcategories>> {
     return this.http.get<Array<Subcategories>>("https://localhost:7180/ProductSubCategory/get-product-subcategorybycategoryid/"+categoryid, { headers: this.headers });
   } 
+    
 }

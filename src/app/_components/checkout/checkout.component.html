@@ -6,7 +6,7 @@
                 <div class="content text-center">
                     <h1 class="mb-3">Checkout</h1>
                     <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb bg-transparent justify-content-center"> 
+                        <ol class="breadcrumb bg-transparent justify-content-center">
                             <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
                             <li class="breadcrumb-item active" aria-current="page">Checkout</li>
                         </ol>
@@ -23,23 +23,29 @@
                 <div class="col-lg-8 pr-5">
                     <div class="coupon-notice " data-toggle="modal" data-target="#coupon-modal">
                         <div class="bg-light p-3">
-                            Have a coupon? <a routerLink="/checkout" class="showcoupon">Click here to enter your code</a>
+                            Have a coupon? <a routerLink="/checkout" class="showcoupon">Click here to enter your
+                                code</a>
                         </div>
                     </div>
                     <div class="billing-details mt-5">
                         <h4 class="mb-4">Billing Details</h4>
-                        <form class="checkout-form" [formGroup] = "formdata" (ngSubmit)="placeorder(formdata.value)" id="ngForm" #documentEditForm="ngForm">
+                        <!-- <form class="checkout-form" [formGroup]="formdata" (ngSubmit)="placeorder(formdata.value); makePayment(orderdata.total_Amount)" -->
+                        <form class="checkout-form" [formGroup]="formdata"
+                            (ngSubmit)="placeorder(formdata.value);makePayment(orderdata.total_Amount)" id="ngForm"
+                            #documentEditForm="ngForm">
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="form-group mb-4">
                                         <label for="first_name">First Name</label>
-                                        <input type="text" class="form-control" id="first_name" placeholder="" formControlName="firstname">
+                                        <input type="text" class="form-control" id="first_name" placeholder=""
+                                            formControlName="firstname">
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="form-group mb-4">
                                         <label for="last_name">Last Name</label>
-                                        <input type="text" class="form-control" id="last_name" placeholder="" formControlName="lastname" >
+                                        <input type="text" class="form-control" id="last_name" placeholder=""
+                                            formControlName="lastname">
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
@@ -81,37 +87,42 @@
                                 <div class="col-lg-12">
                                     <div class="form-group mb-4">
                                         <label for="first_name">Town / City </label>
-                                        <input type="text" class="form-control" id="city" placeholder="Enter City" formControlName="city">
+                                        <input type="text" class="form-control" id="city" placeholder="Enter City"
+                                            formControlName="city">
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
                                     <div class="form-group mb-4">
                                         <label for="first_name">Street Address</label>
-                                        <input type="text" class="form-control" id="street" placeholder="Enter street" formControlName="street">
+                                        <input type="text" class="form-control" id="street" placeholder="Enter street"
+                                            formControlName="street">
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
                                     <div class="form-group mb-4">
                                         <label for="first_name">Apartment, suite, unit etc. (optional)</label>
-                                        <input type="text" class="form-control" id="apartment" placeholder="Apartment" formControlName="house">
+                                        <input type="text" class="form-control" id="apartment" placeholder="Apartment"
+                                            formControlName="house">
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
                                     <div class="form-group mb-4">
                                         <label for="first_name">ZIP / PinCode</label>
-                                        <input type="text" class="form-control" id="postcode" placeholder="Enter zip/pincode" formControlName="pincode">
+                                        <input type="text" class="form-control" id="postcode"
+                                            placeholder="Enter zip/pincode" formControlName="pincode">
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
                                     <div class="form-group mb-4">
                                         <label for="first_name">Phone </label>
-                                        <input type="text" class="form-control" id="phone" placeholder="Enter Phone no" >
+                                        <input type="text" class="form-control" id="phone" placeholder="Enter Phone no">
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
                                     <div class="form-group mb-4">
                                         <label for="first_name">Email address </label>
-                                        <input type="text" class="form-control" id="email" placeholder="Enter Email" >
+                                        <input type="text" class="form-control" id="email" placeholder="Enter Email">
+                                        <!-- <input type="number" class="form-control" id="total_Amount"> -->
                                     </div>
                                 </div>
                             </div>
@@ -146,8 +157,8 @@
                             Your personal data will be used to process your order, support your experience throughout
                             this website, and for other purposes described in our <a href="#">privacy policy</a>.
                         </div>
-                        <button type="submit" form="ngForm" [disabled]="!documentEditForm.form.valid" >Place Order</button>
-                        <!-- class="btn btn-main btn-small" -->
+                        <button type="submit" form="ngForm" [disabled]="!documentEditForm.form.valid">Place
+                            Order</button><br />
                     </div>
                 </div>
             </div>

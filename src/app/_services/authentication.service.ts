@@ -96,7 +96,7 @@ export class AuthenticationService {
           idToken: user.idToken
         }
       }
-      this.validateExternalAuth(externalAuth);
+      this.validateExternalAuth(externalAuth, user);
     },
     error: (err: any) => {
       debugger
@@ -104,7 +104,7 @@ export class AuthenticationService {
     }})
   }
 
-  private  validateExternalAuth(externalAuth: ExternalAuthDto) {
+  private  validateExternalAuth(externalAuth: ExternalAuthDto, user:any) {
     debugger
      this.externalLogin('Users/ExternalLogin', externalAuth)
       .subscribe({
@@ -112,12 +112,21 @@ export class AuthenticationService {
           console.log(res);
           localStorage.setItem("token", res.token);
           localStorage.setItem("refreshToken", res.refreshToken);
+          this.userbyemail(user.email);
           this.sendAuthStateChangeNotification(res.isAuthSuccessful);
           this.router.navigate([""]);
         },
         error: (err: HttpErrorResponse) => {
+          alert("please do sign up first");
           this.signOutExternal();
+          this.router.navigate(["register"]);
         }
       });
+  }
+
+  userbyemail(email: string) {
+    this.getuserbyemail(email).subscribe((data) => {
+      localStorage.setItem("id", data.id.toString());
+    });
   }
 }
